@@ -1,21 +1,50 @@
 #include <stdio.h>
-#include <string.h> //для strcmp и не только 
+#include <string.h> //для strcmp, strcpy
 
-/*char SelectionSort () {
+int PrintArray (char words[10][100]) { //вывод массива
+    for (int i = 0; i < 10; i++) {
+        printf ("%s\n", words[i]);
+    }
+    return 0;
+}
 
-}*/
-
-char BubbleSort (char *words) {
+int SelectionSort (char words[10][100]) {
+    char q[100]; //для обмена 
+    int min; //для поиска минимального элемента
     for (int i = 0; i < 10 - 1; i++) {
-        for (int j = 0; j < 10 - 1 - i; j++) {
-            if (strcmp (words[j], words[j + 1])) {
-                q = words[j];
-                words[j] = words[j + 1];
-                words[j + 1] = q;
+        min = i;
+        for (int j = i + 1; j < 10; j++) {
+            if (strcmp (words[j], words[min]) < 0) {
+                min = j;
+            }
+        }
+        strcpy (q, words[i]);
+        strcpy (words[i], words[min]);
+        strcpy (words[min], q);
+    }
+
+    printf ("Ваш отсортированный массив (метод Selection Sort): \n");
+    PrintArray(words);
+
+    return 0; 
+}
+
+int BubbleSort (char words[10][100]) {
+    char q[100];
+    for (int i = 0; i < 10 - 1; i++) {
+        for (int j = 10 - 1; j > i; j--) {
+            if (strcmp (words[j - 1], words[j]) > 0) {
+                strcpy (q, words[j - 1]);
+                strcpy (words[j - 1], words[j]);
+                strcpy (words[j], q);
             }
         }
     }
-    return words[10][100];
+
+    printf ("Ваш отсортированный массив (метод Bubble Sort): \n");
+    PrintArray(words);
+
+    return 0;
 }
 
 /*char CombSort () {
@@ -38,12 +67,11 @@ int main () {
         scanf("%s", &words[i]);
     }
 
-    if (search) {
-       char sort_words[10][100] = BubbleSort (words);
-       for (int i = 0; i < 10; i++) {
-        printf("%s", sort_words[i]);
-       }
-
+    if (search == 1) {
+        SelectionSort (words);
+    }
+    else if (search == 2) {
+       BubbleSort (words);
     }
 
     return 0; 
