@@ -47,9 +47,33 @@ int BubbleSort (char words[10][100]) {
     return 0;
 }
 
-/*char CombSort () {
+char CombSort (char words[10][100]) {
+    float rfactor = 1.24733;
+    int j, swaps = 1, gap = 10;
+    char q[100];
 
-}*/
+    while (gap > 1 || swaps) {
+        gap = (int)(gap / rfactor);
+        if (gap < 1) {
+            gap = 1;
+        }
+        swaps = 0;
+
+        for (int i = 0; i < 10 - gap; ++i) {
+            j = i + gap;
+            if (strcmp (words[i], words[j]) > 0) {
+                strcpy (q, words[i]);
+                strcpy (words[i], words[j]);
+                strcpy (words[j], q);
+                swaps = 1;
+            }
+        }
+    }
+    printf ("Ваш отсортированный массив (метод Сomb Sort): \n");
+    PrintArray(words);
+
+    return 0;
+}
 
 int main () {
     char words [10][100];
@@ -58,7 +82,7 @@ int main () {
     printf ("Какой алгоритм вы хотите использовать?\n");
     printf ("1. Сортировка выбором (Selection Sort)\n");
     printf ("2. Сортировка пузырьком (Bubble Sort)\n");
-    printf ("3. Сортировка расчёчской (Comb Sort)\n");
+    printf ("3. Сортировка расчёской (Comb Sort)\n");
     printf ("4. Все сортировки\n");
     scanf("%d", &search);
 
@@ -72,6 +96,9 @@ int main () {
     }
     else if (search == 2) {
        BubbleSort (words);
+    }
+    else if (search == 3) {
+        CombSort (words);
     }
 
     return 0; 
