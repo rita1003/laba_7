@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h> //для strcmp, strcpy
+#include <time.h>
 
 int PrintArray (char words[10][100]) { //вывод массива
     for (int i = 0; i < 10; i++) {
@@ -12,6 +13,7 @@ int SelectionSort (char words[10][100]) { //сортировка выбором
     char q[100]; //для обмена 
     int count_of_itertion = 0; //количество итераций
     int min; //для поиска минимального элемента
+    clock_t time_start = clock(); 
     for (int i = 0; i < 10 - 1; i++) {
         min = i;
         for (int j = i + 1; j < 10; j++) {
@@ -26,10 +28,12 @@ int SelectionSort (char words[10][100]) { //сортировка выбором
         printf ("Итерация %d\n", count_of_itertion);
         PrintArray(words);
     }
-
+    clock_t time_end = clock() - time_start;
     printf ("Ваш отсортированный массив (метод Selection Sort): \n");
     PrintArray(words);
     printf ("Количество итераций: %d\n", count_of_itertion);
+    printf ("Время выполнения функции: ");
+    printf("%u\n", (double)time_end / CLOCKS_PER_SEC);
 
     return 0; 
 }
@@ -37,6 +41,7 @@ int SelectionSort (char words[10][100]) { //сортировка выбором
 int BubbleSort (char words[10][100]) { //сортировка пузырьком
     int count_of_itertion = 0; //количество итераций
     char q[100];
+    clock_t time_start = clock(); 
     for (int i = 0; i < 10 - 1; i++) {
         for (int j = 10 - 1; j > i; j--) {
             if (strcmp(words[j - 1], words[j]) > 0) {
@@ -49,9 +54,12 @@ int BubbleSort (char words[10][100]) { //сортировка пузырьком
             }
         }
     }
+    clock_t time_end = clock() - time_start;
     printf ("Ваш отсортированный массив (метод Bubble Sort): \n");
     PrintArray(words);
     printf ("Количество итераций: %d\n", count_of_itertion);
+    printf ("Время выполнения функции: ");
+    printf("%u\n", (double)time_end / CLOCKS_PER_SEC);
 
     return 0;
 }
@@ -61,7 +69,7 @@ int CombSort (char words[10][100]) { //сортировка расчёской
     float rfactor = 1.24733;
     int j, swaps = 1, gap = 10;
     char q[100];
-
+    clock_t time_start = clock(); 
     while (gap > 1 || swaps) {
         gap = (int)(gap / rfactor);
         if (gap < 1) {
@@ -82,9 +90,12 @@ int CombSort (char words[10][100]) { //сортировка расчёской
             }
         }
     }
+    clock_t time_end = clock() - time_start;
     printf ("Ваш отсортированный массив (метод Сomb Sort): \n");
     PrintArray(words);
     printf ("Количество итераций: %d\n", count_of_itertion);
+    printf ("Время выполнения функции: ");
+    printf("%u\n", (double)time_end / CLOCKS_PER_SEC);
 
     return 0;
 }
