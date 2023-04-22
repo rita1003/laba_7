@@ -8,14 +8,13 @@ int main () {
     scanf ("%s", &word);
     for (int i = 0; word[i]!='\0'; i++) {
         for (int j = 0; j < 6; j++) {
-            if (word[i] == vowel_lertters[j]) {
+            if (word[i] == vowel_letters[j]) {
                 vowels++;
             }
         }
-
+        consonants = i - vowels + 1;
     }
-    
-    consonants = i - vowels;
+
     printf ("Количество согласных: %d\n", consonants);
     printf ("Количество гласных: %d\n", vowels);
 
