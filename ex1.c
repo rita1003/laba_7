@@ -8,8 +8,9 @@ int PrintArray (char words[10][100]) { //вывод массива
     return 0;
 }
 
-int SelectionSort (char words[10][100]) {
+int SelectionSort (char words[10][100]) { //сортировка выбором
     char q[100]; //для обмена 
+    int count_of_itertion = 0; //количество итераций
     int min; //для поиска минимального элемента
     for (int i = 0; i < 10 - 1; i++) {
         min = i;
@@ -21,33 +22,42 @@ int SelectionSort (char words[10][100]) {
         strcpy (q, words[i]);
         strcpy (words[i], words[min]);
         strcpy (words[min], q);
+        count_of_itertion++;
+        printf ("Итерация %d\n", count_of_itertion);
+        PrintArray(words);
     }
 
     printf ("Ваш отсортированный массив (метод Selection Sort): \n");
     PrintArray(words);
+    printf ("Количество итераций: %d\n", count_of_itertion);
 
     return 0; 
 }
 
-int BubbleSort (char words[10][100]) {
+int BubbleSort (char words[10][100]) { //сортировка пузырьком
+    int count_of_itertion = 0; //количество итераций
     char q[100];
     for (int i = 0; i < 10 - 1; i++) {
         for (int j = 10 - 1; j > i; j--) {
-            if (strcmp (words[j - 1], words[j]) > 0) {
+            if (strcmp(words[j - 1], words[j]) > 0) {
                 strcpy (q, words[j - 1]);
                 strcpy (words[j - 1], words[j]);
                 strcpy (words[j], q);
+                count_of_itertion++;
+                printf ("Итерация %d\n", count_of_itertion);
+                PrintArray(words);
             }
         }
     }
-
     printf ("Ваш отсортированный массив (метод Bubble Sort): \n");
     PrintArray(words);
+    printf ("Количество итераций: %d\n", count_of_itertion);
 
     return 0;
 }
 
-char CombSort (char words[10][100]) {
+int CombSort (char words[10][100]) { //сортировка расчёской
+    int count_of_itertion = 0; //количество итераций
     float rfactor = 1.24733;
     int j, swaps = 1, gap = 10;
     char q[100];
@@ -65,18 +75,24 @@ char CombSort (char words[10][100]) {
                 strcpy (q, words[i]);
                 strcpy (words[i], words[j]);
                 strcpy (words[j], q);
+                count_of_itertion++;
+                printf ("Итерация %d\n", count_of_itertion);
+                PrintArray(words);                
                 swaps = 1;
             }
         }
     }
     printf ("Ваш отсортированный массив (метод Сomb Sort): \n");
     PrintArray(words);
+    printf ("Количество итераций: %d\n", count_of_itertion);
 
     return 0;
 }
 
 int main () {
     char words [10][100];
+    char old_array[10][100]; //т.к. при сортировке мы потеряем старый массив
+    char old_array2[10][100];
     int search;
 
     printf ("Какой алгоритм вы хотите использовать?\n");
@@ -89,18 +105,27 @@ int main () {
     printf("Введите 10 слов: ");
     for (int i = 0; i < 10; i++) {
         scanf("%s", &words[i]);
+        strcpy (old_array[i], words[i]); //сохранили значения старого массива 
+        strcpy (old_array2[i], words[i]);
     }
-
+    
     if (search == 1) {
         SelectionSort (words);
     }
     else if (search == 2) {
-       BubbleSort (words);
+        BubbleSort (words);
     }
     else if (search == 3) {
         CombSort (words);
     }
+    else if (search == 4) {
+        SelectionSort (words);
+        BubbleSort (old_array);
+        CombSort (old_array2);
+    }
+    else {
+        printf ("Такого варианта нет. Выберете другой");
+    }
 
-    return 0; 
-
+    return 0;
 }
