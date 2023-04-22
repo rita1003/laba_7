@@ -186,9 +186,6 @@ int main () {
         BubbleSort (old_array);
         CombSort (old_array2);
     }
-    else {
-        printf ("Такого варианта нет. Выберете другой");
-    }
 
     return 0;
 }
